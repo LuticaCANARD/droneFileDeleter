@@ -26,7 +26,7 @@ ProcessSystem::ProcessSystem(uint _threadNumber) : threadNumber(_threadNumber), 
 
 }
 
-void ProcessSystem::init(vector<path> task, uint _maxFailCount)
+void ProcessSystem::init(const vector<path>& task, uint _maxFailCount)
 {
     pthread_mutex_init(&mutex, NULL);
     tasks = task;

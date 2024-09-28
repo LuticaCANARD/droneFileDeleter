@@ -36,7 +36,7 @@ protected:
     ~ProcessSystem();
 public :
     ProcessSystem(uint _threadNumber);
-    static void init(vector<path> task, uint _maxFailCount = 100);
+    static void init(const vector<path>& task, uint _maxFailCount = 100);
     void run();
 
 };
