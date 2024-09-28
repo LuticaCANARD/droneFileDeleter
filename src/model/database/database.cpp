@@ -1,7 +1,4 @@
 #include "database.h"
-
-using namespace std;
-using namespace filesystem;
 /// @brief 
 /// @param now 탐색할 당시의 시간입니다.
 /// @param aliveTime now로부터 몇 밀리초 이전에 생성된 파일들을 탐색할 것인지 결정합니다. 

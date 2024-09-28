@@ -13,6 +13,7 @@ vector<thread> ProcessSystem::threads = vector<thread>();
 
 ProcessSystem::ProcessSystem()
 {
+    threadNumber = 1;
     isRun = false;
 }
 
@@ -20,10 +21,9 @@ ProcessSystem::~ProcessSystem()
 {
 
 }
-ProcessSystem::ProcessSystem(uint _threadNumber)
+ProcessSystem::ProcessSystem(uint _threadNumber) : threadNumber(_threadNumber), isRun(false)
 {
-    threadNumber = _threadNumber;
-    isRun = false;
+
 }
 
 void ProcessSystem::init(vector<path> task, uint _maxFailCount)
