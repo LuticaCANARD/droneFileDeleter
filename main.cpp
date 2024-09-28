@@ -9,6 +9,7 @@
 #include "./src/model/file/filefinder.h"
 
 using namespace std;
+const time_t one_week = 604800000; 
 
 void showDesc(time_t time)
 {
@@ -56,7 +57,7 @@ int main(int argc, char *argv[])
         cout << "The directory you want to search does not exist." << endl;
         return 1;
     }
-    set<string> validFiles = findActivateFiles(now,startPath,68400000);
+    set<string> validFiles = findActivateFiles(now,startPath,one_week);
     int deleteCount = findAndDeleteFilesInDirectory(all_args[1], validFiles,false);
     cout << "The number of files deleted is " << deleteCount << endl;
     
