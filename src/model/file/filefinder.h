@@ -12,7 +12,7 @@ using namespace std;
 namespace fs = std::filesystem;
 
 
-int findAndDeleteFilesInDirectory(string startPath, set<string> vaildFiles,bool isRecursive = true);
+int findAndDeleteFilesInDirectory(string startPath, set<string> vaildFiles,bool isRecursive);
 vector<fs::path> getUnvaildFilesInDirectory(string startPath, set<string> vaildFiles);
 static void deleteFiles(vector<fs::path> files);
 

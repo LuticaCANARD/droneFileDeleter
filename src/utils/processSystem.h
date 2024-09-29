@@ -10,6 +10,7 @@
 
 using namespace std;
 using namespace filesystem;
+namespace fs = std::filesystem;
 class ProcessSystem
 {
 private:
@@ -34,8 +35,8 @@ protected:
     ProcessSystem();
     ~ProcessSystem();
 public :
-    ProcessSystem(uint threadNumber);
-    static void init(vector<path> task, uint maxFailCount = 100);
+    ProcessSystem(uint _threadNumber);
+    static void init(const vector<path>& task, uint _maxFailCount = 100);
     void run();
 
 };

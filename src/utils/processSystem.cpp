@@ -1,8 +1,19 @@
-#include "./processSystem.h"
+#include "processSystem.h"
 
-namespace fs = std::filesystem;
+vector<path> ProcessSystem::tasks = vector<path>();
+pthread_mutex_t ProcessSystem::mutex = PTHREAD_MUTEX_INITIALIZER;
+long long ProcessSystem::nowCount = 0;
+uint ProcessSystem::nowSuccessCount = 0;
+uint ProcessSystem::failCount = 0;
+uint ProcessSystem::maxFailCount;
+uint ProcessSystem::maxTaskCount;
+bool ProcessSystem::isCanRun = false;
+vector<thread> ProcessSystem::threads = vector<thread>();
+
+
 ProcessSystem::ProcessSystem()
 {
+    threadNumber = 1;
     isRun = false;
 }
 
@@ -10,23 +21,22 @@ ProcessSystem::~ProcessSystem()
 {
 
 }
-ProcessSystem::ProcessSystem(uint threadNumber)
+ProcessSystem::ProcessSystem(uint _threadNumber) : threadNumber(_threadNumber), isRun(false)
 {
-    ProcessSystem::threadNumber = threadNumber;
-    ProcessSystem::isRun = false;
+
 }
 
-void ProcessSystem::init(vector<path> task, uint maxFailCount = 100)
+void ProcessSystem::init(const vector<path>& task, uint _maxFailCount)
 {
     pthread_mutex_init(&mutex, NULL);
-    ProcessSystem::tasks = task;
-    ProcessSystem::maxFailCount = maxFailCount;
-    ProcessSystem::nowCount = 0;
-    ProcessSystem::failCount = 0;
-    ProcessSystem::maxTaskCount = task.size();
-    ProcessSystem::nowSuccessCount = 0;
-    ProcessSystem::isCanRun = ProcessSystem::maxTaskCount > 0;
-    ProcessSystem::threads = vector<thread>(maxTaskCount);
+    tasks = task;
+    maxFailCount = _maxFailCount;
+    nowCount = 0;
+    failCount = 0;
+    maxTaskCount = task.size();
+    nowSuccessCount = 0;
+    isCanRun = maxTaskCount > 0;
+    threads = vector<thread>(maxTaskCount);
 }
 path ProcessSystem::nextTask()
 {

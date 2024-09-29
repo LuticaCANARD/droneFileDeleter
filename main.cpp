@@ -4,11 +4,12 @@
 #include <set>
 #include <thread>
 #include <iostream>
-#include "./model/database/database.h"
-#include "./utils/processSystem.h"
-#include "./model/file/filefinder.h"
+#include "./src/model/database/database.h"
+#include "./src/utils/processSystem.h"
+#include "./src/model/file/filefinder.h"
 
 using namespace std;
+const time_t one_week = 604800000; 
 
 void showDesc(time_t time)
 {
@@ -48,15 +49,16 @@ int main(int argc, char *argv[])
         cout << "You need to input the absolute path to the directory you want to search." << endl;
         return 1;
     }
-    ProcessSystem::init();
     filesystem::path startPath = all_args[1];
+    vector<path> path_tasks;
+    ProcessSystem::init(path_tasks ,100);
     if(!filesystem::exists(startPath))
     {
         cout << "The directory you want to search does not exist." << endl;
         return 1;
     }
-    set<string> validFiles = findActivateFiles(now,startPath);
-    int deleteCount = findAndDeleteFilesInDirectory(all_args[1], validFiles);
+    set<string> validFiles = findActivateFiles(now,startPath,one_week);
+    int deleteCount = findAndDeleteFilesInDirectory(all_args[1], validFiles,false);
     cout << "The number of files deleted is " << deleteCount << endl;
     
     return 0;
